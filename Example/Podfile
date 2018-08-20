@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'XLinearFlowView_Example' do
+  pod 'XLinearFlowView', :path => '../'
+
+  target 'XLinearFlowView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
