@@ -1,42 +1,23 @@
-#
-# Be sure to run `pod lib lint XLinearFlowView.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see https://guides.cocoapods.org/syntax/podspec.html
-#
-
 Pod::Spec.new do |s|
   s.name             = 'XLinearFlowView'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of XLinearFlowView.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
-
+  s.summary          = 'For views, those have or not same width, displayed in linear flow mode.'
+  
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
-
-  s.homepage         = 'https://github.com/吴新庭/XLinearFlowView'
+views which have same width or not, can be displayed in this view. And drag&drop animation were enabled.
+展示不等宽的元素，按流式布局排版，并提供拖拽动画
+  DESC
+  
+  s.homepage         = 'https://github.com/zxbest/XLinearFlowView'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { '吴新庭' => 'wu.xinting@hotmail.com' }
-  s.source           = { :git => 'https://github.com/吴新庭/XLinearFlowView.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
-  s.ios.deployment_target = '8.0'
-
-  s.source_files = 'XLinearFlowView/Classes/**/*'
+  s.author           = { 'for' => 'wu.xinting@hotmail.com' }
+  s.source           = { :git => 'https://github.com/zxbest/XLinearFlowView.git', :tag => s.version.to_s }
   
-  # s.resource_bundles = {
-  #   'XLinearFlowView' => ['XLinearFlowView/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.ios.deployment_target = '9.0'
+  
+  s.source_files = 'XLinearFlowView/*.{h,m}'
+  
+  s.public_header_files = 'XLinearFlowView/*.h'
+  s.frameworks = 'UIKit'
 end

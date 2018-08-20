@@ -1,0 +1,16 @@
+PODS:
+  - XLinearFlowView (0.1.0)
+
+DEPENDENCIES:
+  - XLinearFlowView (from `../`)
+
+EXTERNAL SOURCES:
+  XLinearFlowView:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  XLinearFlowView: d7bf15910a1fd9ec98dc6308e7ac3d62d9f1e695
+
+PODFILE CHECKSUM: 6f630e018a636139463791dc163d99b74098d1db
+
+COCOAPODS: 1.5.3
