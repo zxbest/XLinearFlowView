@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'XLinearFlowView'
-  s.version          = '0.1.0'
+  s.version          = '1.0.0'
   s.summary          = 'For views, those have or not same width, displayed in linear flow mode.'
   
   s.description      = <<-DESC
