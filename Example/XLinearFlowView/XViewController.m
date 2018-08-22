@@ -101,6 +101,16 @@
     return UIEdgeInsetsMake(40, 10, 10, 10);
 }
 
+- (void)flowView:(XLinearFlowView *)flowView didSelectedItemForIndex:(NSUInteger)index {
+    [flowView reloadData];
+}
+
+- (void)flowView:(XLinearFlowView *)flowView moveItemFrom:(NSUInteger)fromIndex to:(NSUInteger)toIndex {
+    NSString *from = [self.strs objectAtIndex:fromIndex];
+    [self.strs removeObjectAtIndex:fromIndex];
+    [self.strs insertObject:from atIndex:toIndex];
+}
+
 #pragma mark - Get
 - (XLinearFlowView *)tagsView {
     if (!_tagsView) {
