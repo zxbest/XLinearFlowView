@@ -20,4 +20,5 @@ views which have same width or not, can be displayed in this view. And drag&drop
   
   s.public_header_files = 'XLinearFlowView/*.h'
   s.frameworks = 'UIKit'
+  s.requires_arc = true
 end
