@@ -7,6 +7,7 @@
 //
 
 #import "XLinearFlowView.h"
+#import <JKCategories/JKCategories.h>
 
 @implementation XLinearFlowCell
 
@@ -90,12 +91,40 @@
         number = [self.dataSource numberOfItemsInFlowView:self];
     }
     
+    CGPoint layoutPoint = CGPointMake(-1, -1);
+    NSUInteger line = 0;
     for (NSUInteger i = 0; i < number; i++) {
         XLinearFlowCell *cell = [self.dataSource flowView:self cellForIndex:i];
+        if (cell.frame.origin.y > layoutPoint.y) {
+            line++;
+            layoutPoint = cell.frame.origin;
+        }
+        if (self.maxLine > 0 && self.maxLine < line) {
+            // 超出最大行数
+            if (self.frames.count > i && self.overview) {
+                XLinearFlowCell *lastCell = self.cells.lastObject;
+                if (CGRectGetMaxX(lastCell.frame) + self.minimumSpace + self.overview.bounds.size.width > self.bounds.size.width - self.insets.right) {
+                    // 超出右边界
+                    self.overview.jk_origin = lastCell.frame.origin;
+                    [lastCell removeFromSuperview];
+                    [self.cells removeLastObject];
+                } else {
+                    self.overview.jk_origin = CGPointMake(CGRectGetMaxX(lastCell.frame) + self.minimumSpace, lastCell.jk_top);
+                }
+                [self addSubview:self.overview];
+            }
+            
+            break;
+        }
+        
         [self addSubview:cell];
         [self.cells addObject:cell];
     }
     [self invalidateIntrinsicContentSize];
+    
+    if ([self.delegate respondsToSelector:@selector(flowView:didFinishLayout:)]) {
+        [self.delegate flowView:self didFinishLayout:NSMakeRange(0, self.cells.count)];
+    }
 }
 
 - (BOOL)beginInteractiveMovementForItemAtIndex:(NSUInteger)index {
@@ -239,6 +268,10 @@
     for (NSUInteger i = 0; i < number; i++) {
         if (hasSizeMethod) {
             size = [((id<XLinearFlowViewDelegateLayout>)self.delegate) flowView:self sizeForItemAtIndex:i];
+            
+            // 如果比本身还长，缩短为控件长度。断言
+            NSAssert(size.width <= self.bounds.size.width, @"元素的宽度不可以比控件本身还宽");
+            size.width = MIN(self.bounds.size.width, size.width);
         }
         
         self.minimumSpace = (hasSpaceMethod ? [((id<XLinearFlowViewDelegateLayout>)self.delegate) flowView:self minimumInteritemSpacingAtIndex:i] : self.minimumSpace);
