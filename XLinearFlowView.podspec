@@ -16,9 +16,10 @@ views which have same width or not, can be displayed in this view. And drag&drop
   
   s.ios.deployment_target = '9.0'
   
-  s.source_files = 'XLinearFlowView/*.{h,m}'
+  s.source_files = 'XLinearFlowView/**/*.{h,m}'
   
-  s.public_header_files = 'XLinearFlowView/*.h'
+  s.public_header_files = 'XLinearFlowView/**/*.h'
   s.frameworks = 'UIKit'
-  s.requires_arc = true
+  
+  s.dependency 'JKCategories'
 end

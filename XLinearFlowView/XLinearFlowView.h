@@ -44,6 +44,11 @@ typedef NS_ENUM(NSInteger, FlowType) {
  */
 - (void)flowView:(XLinearFlowView *)flowView didSelectedItemForIndex:(NSUInteger)index;
 
+/// 当所有的cell渲染完成时，回调该方法
+/// @param flowView FlowView实例
+/// @param layoutRange 渲染完的Cell范围
+- (void)flowView:(XLinearFlowView *)flowView didFinishLayout:(NSRange)layoutRange;
+
 /**
  元素从fromIndex位置移动到toIndex位置
 
@@ -131,6 +136,13 @@ typedef NS_ENUM(NSInteger, FlowType) {
 @property (nonatomic, weak) id<XLinearFlowViewDelegate> delegate;
 @property (nonatomic, weak) id<XLinearFlowViewDataSource> dataSource;
 
+/// 返回可视Cell的范围
+@property (nonatomic, assign, readonly) NSRange visibleRange;
+/// 设置最大显示行数，如果换行数超过该值，将自动停止渲染. 如果不大于0，将被忽略
+@property (nonatomic, assign) NSUInteger maxLine;
+/// 当设置了最大显示行，而且实际大于设置值时，如果overview有值，将被放置在最后一行的后方
+@property (nonatomic, strong) UIView *overview;
+
 /**
  返回在点point位的元素索引
 
@@ -138,6 +150,13 @@ typedef NS_ENUM(NSInteger, FlowType) {
  @return 元素索引，point点处没有元素，返回NSNotFound
  */
 - (NSUInteger)indexForItemAtPoint:(CGPoint)point;
+
+/**
+ 获取在索引处的cell，或者nil——在index超出范围的情况下
+ 
+ @param index 索引
+ @return cell or nil
+ */
 - (XLinearFlowCell *)cellAtIndex:(NSUInteger)index;
 
 /**
@@ -158,8 +177,11 @@ typedef NS_ENUM(NSInteger, FlowType) {
 
 // 手势拖动时调用，如LongPress. 根据手势不同的state调用下列方法
 - (BOOL)beginInteractiveMovementForItemAtIndex:(NSUInteger)index; // returns NO if reordering was prevented from beginning - otherwise YES
+/// 手势拖动时调用 手势拖动
 - (void)updateInteractiveMovementTargetPosition:(CGPoint)targetPosition;
+/// 手势拖动时调用 手势结束
 - (void)endInteractiveMovement;
+/// 手势拖动时调用 手势取消
 - (void)cancelInteractiveMovement;
 
 @end

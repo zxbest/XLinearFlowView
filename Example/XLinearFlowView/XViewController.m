@@ -32,6 +32,13 @@
     [self.tagsView registerClass:XLinearFlowCell.class forCellReuseIdentifier:NSStringFromClass(XLinearFlowCell.class)];
     self.tagsView.delegate = self;
     self.tagsView.dataSource = self;
+    self.tagsView.maxLine = 3;
+    
+    UIButton *more = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+    more.backgroundColor = [UIColor redColor];
+    [more setTitle:@"更多" forState:UIControlStateNormal];
+    self.tagsView.overview = more;
+    [more addTarget:self action:@selector(clickMore:) forControlEvents:UIControlEventTouchUpInside];
     
     self.longPressGR = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
     [self.tagsView addGestureRecognizer:self.longPressGR];
@@ -50,6 +57,11 @@
 }
 
 #pragma mark - Action
+- (void)clickMore:(UIButton *)btn {
+    self.tagsView.maxLine = 0;
+    [self.tagsView reloadData];
+}
+
 - (void)handleLongPress:(UILongPressGestureRecognizer *)gr {
     switch (gr.state) {
         case UIGestureRecognizerStateBegan: {
